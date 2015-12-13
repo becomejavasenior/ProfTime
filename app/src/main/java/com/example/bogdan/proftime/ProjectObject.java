@@ -6,6 +6,7 @@ import java.util.List;
  * Created by root on 13.12.15.
  */
 public class ProjectObject {
+    public static String initProject = null;
 
     private int id;
     private String firstNameCustomer;

@@ -31,6 +31,7 @@ public class TaskFragment extends Fragment {
     String colorCard;
     String colorText;
     String time;
+    boolean status;
 
     TextView textTaskTitle;
     TextView textWithInfo;
@@ -38,12 +39,13 @@ public class TaskFragment extends Fragment {
     String title;
     String info;
 
-    public TaskFragment(String colorCard, String colorText, String time, String title, String info) {
+    public TaskFragment(String colorCard, String colorText, String time, String title, String info, boolean status) {
         this.colorCard = colorCard;
         this.colorText = colorText;
         this.time = time;
         this.title = title;
         this.info = info;
+        this.status = status;
     }
 
     @Override
@@ -92,7 +94,7 @@ public class TaskFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ShowTask.taskFragment = TaskFragment.this;
                 getActivity().getSupportFragmentManager().beginTransaction().remove(TaskFragment.this).commit();
                 startActivity(new Intent(getActivity().getApplicationContext(), ShowTask.class));
 
@@ -102,33 +104,24 @@ public class TaskFragment extends Fragment {
         button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
-                myFragment = new TaskFragment("#ffa726", "#ffffff", time, title, info);
-
-                fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction.add(R.id.container2, myFragment);
-                getActivity().getSupportFragmentManager().beginTransaction().remove(TaskFragment.this).commit();
-                fragmentTransaction.commit();
-
-
-//                new AlertDialog.Builder(v.getContext())
-//                        .setTitle("Удаление")
-//                        .setMessage("Хотите удалить задачу?")
-//                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // continue with delete
-//                                getActivity().getSupportFragmentManager().beginTransaction().remove(TaskFragment.this).commit();
-//                                timer.cancel();
-//                            }
-//                        })
-//                        .show();
-                return false;
+                return longClick();
             }
         });
 
         return rootView;
+    }
+
+    public boolean longClick() {
+        myFragment = new TaskFragment("#ffa726", "#ffffff", time, title, info, true);
+        int count = StaticValues.listTitle.indexOf(title);
+        StaticValues.listTaskStatus.set(count, true);
+        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.container2, myFragment);
+
+        getActivity().getSupportFragmentManager().beginTransaction().remove(TaskFragment.this).commit();
+        fragmentTransaction.commit();
+        return false;
     }
 
 }
