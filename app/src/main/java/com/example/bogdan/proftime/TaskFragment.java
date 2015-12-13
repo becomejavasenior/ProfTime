@@ -59,8 +59,7 @@ public class TaskFragment extends Fragment {
             public void onClick(View v) {
 
                 myFragment = new TaskFragment();
-                myFragment.card.setCardBackgroundColor(Color.parseColor("#ffa726"));
-
+                
                 fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
 
