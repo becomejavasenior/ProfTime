@@ -123,6 +123,7 @@ public class TaskFragment extends Fragment {
                                 Snackbar snackbar = Snackbar
                                         .make(card, "Задача удалена", Snackbar.LENGTH_LONG);
                                 snackbar.show();
+                                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
                             }
                         })
                         .show();
