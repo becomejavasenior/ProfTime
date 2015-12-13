@@ -21,6 +21,8 @@ public class ShowTask extends AppCompatActivity {
 
     static TaskFragment taskFragment;
 
+    TextView title;
+
     EditText editTextData;
     EditText editTextTime;
 
@@ -43,6 +45,9 @@ public class ShowTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_task);
+
+        title = (TextView) findViewById(R.id.textTitle);
+        title.setText(taskFragment.title.toCharArray(), 0, taskFragment.title.length());
 
         editTextData = (EditText) findViewById(R.id.edit_Data);
         editTextTime = (EditText) findViewById(R.id.edit_Time);
