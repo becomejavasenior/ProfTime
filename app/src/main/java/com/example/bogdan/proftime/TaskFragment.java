@@ -1,6 +1,5 @@
 package com.example.bogdan.proftime;
 
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -114,6 +113,11 @@ public class TaskFragment extends Fragment {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
+                                int count = StaticValues.listTitle.indexOf(title);
+                                StaticValues.listTitle.remove(count);
+                                StaticValues.listTaskInfo.remove(count);
+                                StaticValues.listTime.remove(count);
+                                StaticValues.listTaskStatus.remove(count);
                                 getActivity().getSupportFragmentManager().beginTransaction().remove(TaskFragment.this).commit();
                                 timer.cancel();
                                 Snackbar snackbar = Snackbar

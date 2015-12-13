@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -61,9 +60,8 @@ public class ShowTask extends AppCompatActivity {
         editTextData = (EditText) findViewById(R.id.edit_Data);
         editTextTime = (EditText) findViewById(R.id.edit_Time);
         if (taskFragment.status)
-            status.setBackgroundColor(Color.BLUE);
         textInfo = (TextView) findViewById(R.id.textWithInfo);
-        textInfo.setText(taskFragment.info);
+        textInfo.setText(taskFragment.info.toCharArray(), 0, taskFragment.info.length());
     }
 
     public void onclickTime(View view) {
