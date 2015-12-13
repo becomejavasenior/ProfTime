@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -27,6 +28,8 @@ import static com.example.bogdan.proftime.StaticValues.listTitle;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView sizeStatus;
+
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     TaskFragment myFragment;
@@ -40,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
             "какая собака ? какие жилания ??? буду просто писать код и радоваться) ой, наверное тут очень много ошибок, просто уже " +
             "3 утра и я очень устал))";
 
+    private int checkStatus() {
+        int count = 0;
+        for (boolean b : listTaskStatus) {
+            if (b)
+                count++;
+        }
+        return count;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +63,16 @@ public class MainActivity extends AppCompatActivity {
             listTitle.add("Проверить работу сервера");
             listTitle.add("Поставить картинки");
             listTitle.add("Изменить цвет фона");
+            listTitle.add("сделать макет приложения");
+            listTitle.add("проверить работу сервера");
+            listTitle.add("поставить картинки");
+            listTitle.add("изменить цвет фона");
+            listTitle.add("изменить цвет фона bbbbb");
         }
 
         if (listTime == null) {
             listTime = new ArrayList<>();
+            listTime.add("0");
             listTime.add("0");
             listTime.add("0");
             listTime.add("0");
@@ -67,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             listTaskInfo.add(x);
             listTaskInfo.add(x);
             listTaskInfo.add(x);
+            listTaskInfo.add(x);
         }
 
         if (listTaskStatus == null) {
@@ -75,7 +94,19 @@ public class MainActivity extends AppCompatActivity {
             listTaskStatus.add(false);
             listTaskStatus.add(false);
             listTaskStatus.add(false);
+            listTaskStatus.add(false);
         }
+
+        sizeStatus = (TextView) findViewById(R.id.textSizeStatus);
+        int size = checkStatus();
+        String statusText = null;
+        if (size >= 5 || size == 0)
+            statusText = size + " важных задач";
+        else if (size == 1)
+            statusText = size + " важная задача";
+        else
+            statusText = size + " важных задачи";
+        sizeStatus.setText(statusText.toCharArray(), 0, statusText.length());
 
         Intent intent = getIntent();
         if (ProjectObject.initProject == null) {
@@ -134,13 +165,6 @@ public class MainActivity extends AppCompatActivity {
             createTaskFragment(listTaskStatus.get(i), listTime.get(i), listTitle.get(i), listTaskInfo.get(i));
         }
 
-
-//        findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                createTaskFragment(0);
-//            }
-//        });
     }
 
     public void createTaskFragment(Boolean aBoolean, String time, String title, String info) {
