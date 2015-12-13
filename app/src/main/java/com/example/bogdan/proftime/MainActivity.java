@@ -1,5 +1,7 @@
 package com.example.bogdan.proftime;
 
+import static com.example.bogdan.proftime.StaticValues.*;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     TaskFragment myFragment;
-
+    //private String projectObject;
     String x = "надо полностью переделать макет приложения," +
             " найти новые картинки, сделать фскрины экранов и добавить счет моей карточки заказчику, " +
             "что бы он такой классный пайан мог мне заплатить большие деньги )) а я уже в свою очередь куплю себе крутую" +
@@ -40,29 +42,45 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<String> listTitle = new ArrayList<>();
-        listTitle.add("сделать макет приложения");
-        listTitle.add("проверить работу сервера");
-        listTitle.add("поставить картинки");
-        listTitle.add("изменить цвет фона");
+        if (listTitle == null) {
+            listTitle = new ArrayList<>();
+            listTitle.add("сделать макет приложения");
+            listTitle.add("проверить работу сервера");
+            listTitle.add("поставить картинки");
+            listTitle.add("изменить цвет фона");
+        }
 
-        ArrayList<String> listTime = new ArrayList<>();
-        listTime.add("0");
-        listTime.add("0");
-        listTime.add("0");
-        listTime.add("0");
+        if (listTime == null) {
+            listTime = new ArrayList<>();
+            listTime.add("0");
+            listTime.add("0");
+            listTime.add("0");
+            listTime.add("0");
+        }
 
-        ArrayList<String> listTaskInfo = new ArrayList<>();
-        listTaskInfo.add(x);
-        listTaskInfo.add(x);
-        listTaskInfo.add(x);
-        listTaskInfo.add(x);
+        if (listTaskInfo == null) {
+            listTaskInfo = new ArrayList<>();
+            listTaskInfo.add(x);
+            listTaskInfo.add(x);
+            listTaskInfo.add(x);
+            listTaskInfo.add(x);
+        }
+
+        if (listTaskStatus == null) {
+            listTaskStatus = new ArrayList<>();
+            listTaskStatus.add(false);
+            listTaskStatus.add(false);
+            listTaskStatus.add(false);
+            listTaskStatus.add(false);
+        }
 
         Intent intent = getIntent();
-        String projectObject = intent.getStringExtra("data");
+        if (ProjectObject.initProject == null) {
+            ProjectObject.initProject = intent.getStringExtra("data");
+        }
 
         Gson gson = new Gson();
-        ProjectObject projectObject1 = gson.fromJson(projectObject, ProjectObject.class);
+        ProjectObject projectObject1 = gson.fromJson(ProjectObject.initProject, ProjectObject.class);
 
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName("SmartHouse Project");
 
@@ -110,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < listTime.size(); i++) {
 
-            createTaskFragment(listTime.get(i), listTitle.get(i), listTaskInfo.get(i));
+            createTaskFragment(listTaskStatus.get(i), listTime.get(i), listTitle.get(i), listTaskInfo.get(i));
         }
 
 
@@ -122,13 +140,16 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
-    public void createTaskFragment(String time, String title, String info) {
-        myFragment = new TaskFragment("#ffffff", "#ffa726", time, title, info);
-
+    public void createTaskFragment(Boolean aBoolean, String time, String title, String info) {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-
-        fragmentTransaction.add(R.id.container, myFragment);
+        if (!aBoolean) {
+            myFragment = new TaskFragment("#ffffff", "#ffa726", time, title, info, false);
+            fragmentTransaction.add(R.id.container, myFragment);
+        } else {
+            myFragment = new TaskFragment("#ffa726", "#ffffff", time, title, info, true);
+            fragmentTransaction.add(R.id.container2, myFragment);
+        }
         fragmentTransaction.commit();
     }
 }
