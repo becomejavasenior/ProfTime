@@ -2,13 +2,16 @@ package com.example.bogdan.proftime;
 
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -104,6 +107,23 @@ public class TaskFragment extends Fragment {
         button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("Удалить")
+                        .setMessage("Вы точно хотите удалить задачу?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                getActivity().getSupportFragmentManager().beginTransaction().remove(TaskFragment.this).commit();
+                                timer.cancel();
+                                Snackbar snackbar = Snackbar
+                                        .make(card, "Задача удалена", Snackbar.LENGTH_LONG);
+                                snackbar.show();
+                            }
+                        })
+                        .show();
+
+
                 return longClick();
             }
         });
@@ -112,15 +132,15 @@ public class TaskFragment extends Fragment {
     }
 
     public boolean longClick() {
-        myFragment = new TaskFragment("#ffa726", "#ffffff", time, title, info, true);
-        int count = StaticValues.listTitle.indexOf(title);
-        StaticValues.listTaskStatus.set(count, true);
-        fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.container2, myFragment);
 
-        getActivity().getSupportFragmentManager().beginTransaction().remove(TaskFragment.this).commit();
-        fragmentTransaction.commit();
+//        myFragment = new TaskFragment("#ffa726", "#ffffff", time, title, info, true);
+//        int count = StaticValues.listTitle.indexOf(title);
+//        StaticValues.listTaskStatus.set(count, true);
+//        fragmentManager = getActivity().getSupportFragmentManager();
+//        fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.add(R.id.container2, myFragment);
+
+//        fragmentTransaction.commit();
         return false;
     }
 

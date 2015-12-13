@@ -3,18 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#43A047"
+    android:background="#ddd8d8"
+    android:padding="15dp"
+    android:id="@+id/cont"
     tools:context=".ShowTask">
 
-
-    <Button
-        android:id="@+id/buttonStart"
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="    Сохранить   "
-        android:gravity="start|center_vertical"/>
-
-
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="sdvsdv"
+        android:id="@+id/textTitle"
+        android:layout_margin="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +28,7 @@
             android:layout_weight="1"
             android:text="Дата"
             android:id="@+id/edit_Data"
-            android:gravity="center"
+            android:gravity="left"
             android:onClick="onclickData"
             android:focusable="false"
             android:layout_marginLeft="10dp"
@@ -41,7 +42,7 @@
             android:id="@+id/edit_Time"
             android:focusable="false"
             android:onClick="onclickTime"
-            android:gravity="center"
+            android:gravity="left"
             android:layout_marginRight="10dp"
             android:layout_height="wrap_content" />
 
@@ -60,14 +61,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/status"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="sdvsdvsdvsdv"
+                android:textSize="22sp"
                 android:id="@+id/textWithInfo"/>
 
         </LinearLayout>

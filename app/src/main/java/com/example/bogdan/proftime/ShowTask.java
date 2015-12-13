@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -44,47 +46,24 @@ public class ShowTask extends AppCompatActivity {
     long bufTime = 0;
     TextView textInfo;
 
+    LinearLayout linearLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_task);
 
+        linearLayout = (LinearLayout) findViewById(R.id.cont);
         title = (TextView) findViewById(R.id.textTitle);
         title.setText(taskFragment.title.toCharArray(), 0, taskFragment.title.length());
 
         editTextData = (EditText) findViewById(R.id.edit_Data);
         editTextTime = (EditText) findViewById(R.id.edit_Time);
-        status = (Button) findViewById(R.id.status);
         if (taskFragment.status)
             status.setBackgroundColor(Color.BLUE);
-        buttonStart = (Button) findViewById(R.id.buttonStart);
         textInfo = (TextView) findViewById(R.id.textWithInfo);
         textInfo.setText(taskFragment.info);
-
-//        buttonStart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //taskFragment.time = new String(String.valueOf(timeFinal));
-//                int count = StaticValues.listTitle.indexOf(taskFragment.title);
-//                if (timeFinal > 0)
-//                    StaticValues.listTime.set(count, String.valueOf(timeFinal));
-//                startActivity(new Intent(getApplicationContext(), MainActivity.class));//.putExtra("newTask", taskFragment));
-//            }
-//        });
-
-//        status.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int count = StaticValues.listTitle.indexOf(taskFragment.title);
-//                if (!StaticValues.listTaskStatus.get(count)) {
-//                    StaticValues.listTaskStatus.set(count, true);
-//                    v.setBackgroundColor(Color.BLUE);
-//                } else {
-//                    StaticValues.listTaskStatus.set(count, false);
-//                    v.setBackgroundColor(Color.GRAY);
-//                }
-//            }
-//        });
     }
 
     public void onclickTime(View view) {
@@ -164,6 +143,7 @@ public class ShowTask extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menutask, menu);
+
         return true;
     }
 
@@ -176,6 +156,9 @@ public class ShowTask extends AppCompatActivity {
                 if (timeFinal > 0)
                     StaticValues.listTime.set(count, String.valueOf(timeFinal));
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));//.putExtra("newTask", taskFragment));
+                Snackbar snackbar1 = Snackbar
+                        .make(linearLayout, "Сохранено", Snackbar.LENGTH_LONG);
+                snackbar1.show();
                 return true;
             case R.id.star:
                 count = StaticValues.listTitle.indexOf(taskFragment.title);
@@ -184,6 +167,10 @@ public class ShowTask extends AppCompatActivity {
                 } else {
                     StaticValues.listTaskStatus.set(count, false);
                 }
+
+                Snackbar snackbar = Snackbar
+                        .make(linearLayout, "добавлено в избранное", Snackbar.LENGTH_LONG);
+                snackbar.show();
 
                 return true;
             default:
@@ -199,5 +186,6 @@ public class ShowTask extends AppCompatActivity {
         if (timeFinal > 0)
             StaticValues.listTime.set(count, String.valueOf(timeFinal));
         startActivity(new Intent(getApplicationContext(), MainActivity.class));//.putExtra("newTask", taskFragment));
+        finish();
     }
 }
