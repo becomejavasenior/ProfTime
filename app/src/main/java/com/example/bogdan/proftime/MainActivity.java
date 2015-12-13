@@ -1,7 +1,5 @@
 package com.example.bogdan.proftime;
 
-import static com.example.bogdan.proftime.StaticValues.*;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +19,11 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
+
+import static com.example.bogdan.proftime.StaticValues.listTaskInfo;
+import static com.example.bogdan.proftime.StaticValues.listTaskStatus;
+import static com.example.bogdan.proftime.StaticValues.listTime;
+import static com.example.bogdan.proftime.StaticValues.listTitle;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (listTitle == null) {
             listTitle = new ArrayList<>();
-            listTitle.add("сделать макет приложения");
-            listTitle.add("проверить работу сервера");
-            listTitle.add("поставить картинки");
-            listTitle.add("изменить цвет фона");
+            listTitle.add("Сделать макет приложения");
+            listTitle.add("Проверить работу сервера");
+            listTitle.add("Поставить картинки");
+            listTitle.add("Изменить цвет фона");
         }
 
         if (listTime == null) {
@@ -152,4 +155,5 @@ public class MainActivity extends AppCompatActivity {
         }
         fragmentTransaction.commit();
     }
+
 }
