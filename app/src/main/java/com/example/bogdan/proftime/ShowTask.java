@@ -128,8 +128,6 @@ public class ShowTask extends AppCompatActivity {
             }
 
 
-
-
             c = Calendar.getInstance();
             c.set(myYear, myMonth, myDay, myHour, myMinute);
             long d = c.getTimeInMillis();
