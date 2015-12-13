@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#43A047"
+    tools:context=".ShowTask">
+
+
+    <Button
+        android:id="@+id/buttonStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="    Сохранить   "
+        android:gravity="start|center_vertical"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="Дата"
+            android:id="@+id/edit_Data"
+            android:gravity="center"
+            android:onClick="onclickData"
+            android:focusable="false"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"/>
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="Время"
+            android:id="@+id/edit_Time"
+            android:focusable="false"
+            android:onClick="onclickTime"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollViewTask">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/delete"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textWithInfo"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

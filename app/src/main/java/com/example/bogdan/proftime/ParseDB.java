@@ -1,15 +1,13 @@
 package com.example.bogdan.proftime;
 
-import android.net.http.Headers;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.preference.PreferenceActivity;
+import android.view.View;
+import android.widget.ProgressBar;
 
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,13 +17,26 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by root on 12.12.15.
  */
 public class ParseDB extends AsyncTask<String, Void, String> {
+
+    Context context;
+    ProgressBar progressBar;
+
+    public ParseDB(Context context, ProgressBar progressBar) {
+        this.context = context;
+        this.progressBar = progressBar;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        progressBar.setVisibility(View.VISIBLE);
+    }
 
     @Override
     protected String doInBackground(String... params) {
@@ -90,6 +101,15 @@ public class ParseDB extends AsyncTask<String, Void, String> {
                 }
                 projectObject.setTasks(tasks);
             }
+
+            Gson gson = new Gson();
+            String jsonTasks = gson.toJson(projectObject);
+
+            progressBar.setVisibility(View.GONE);
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.putExtra("data", jsonTasks);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         } catch (JSONException e) {
             e.printStackTrace();
         }

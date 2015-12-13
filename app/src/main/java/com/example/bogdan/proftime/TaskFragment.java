@@ -1,8 +1,8 @@
 package com.example.bogdan.proftime;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -10,16 +10,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-
-
+@SuppressLint("ValidFragment")
 public class TaskFragment extends Fragment {
 
     Button button;
@@ -28,8 +27,24 @@ public class TaskFragment extends Fragment {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     TaskFragment myFragment;
-    LinearLayout newLL;
     CardView card;
+    String colorCard;
+    String colorText;
+    String time;
+
+    TextView textTaskTitle;
+    TextView textWithInfo;
+
+    String title;
+    String info;
+
+    public TaskFragment(String colorCard, String colorText, String time, String title, String info) {
+        this.colorCard = colorCard;
+        this.colorText = colorText;
+        this.time = time;
+        this.title = title;
+        this.info = info;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,13 +53,33 @@ public class TaskFragment extends Fragment {
 
         button = (Button) rootView.findViewById(R.id.btn);
         textTime = (TextView) rootView.findViewById(R.id.textTime);
-        card = (CardView) rootView.findViewById(R.id.card_view);
 
-        final CountDownTimer timer = new CountDownTimer(15000, 1000) {
+        textTaskTitle = (TextView) rootView.findViewById(R.id.titleTask);
+//        textWithInfo = (TextView) rootView.findViewById(R.id.textWithInfo);
+//        textWithInfo.setText(info);
+        textTaskTitle.setText(title);
+
+
+        card = (CardView) rootView.findViewById(R.id.card_view);
+        textTime.setTextColor(Color.parseColor(colorText));
+        textTime.setText(time);
+        card.setCardBackgroundColor(Color.parseColor(colorCard));
+
+        final CountDownTimer timer = new CountDownTimer(Long.parseLong(time), 1000) {
 
             public void onTick(long millisUntilFinished) {
-                long k = millisUntilFinished/1000;
-                textTime.setText(k + "");
+
+                int seconds;
+                int minutes;
+                int hours;
+                int days;
+                seconds = (int) (millisUntilFinished / 1000) % 60;
+                minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
+                hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
+                days = (int) ((millisUntilFinished / (1000 * 60 * 60 * 24)) % 365);
+                textTime.setText(hours + "");
+                Log.d("Tick", days + " days " + hours + " hrs " + minutes + " mins " + seconds + " sec ");
+
             }
 
             public void onFinish() {
@@ -58,8 +93,18 @@ public class TaskFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                myFragment = new TaskFragment();
-                
+                getActivity().getSupportFragmentManager().beginTransaction().remove(TaskFragment.this).commit();
+                startActivity(new Intent(getActivity().getApplicationContext(), ShowTask.class));
+
+            }
+        });
+
+        button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                myFragment = new TaskFragment("#ffa726", "#ffffff", time, title, info);
+
                 fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -68,23 +113,17 @@ public class TaskFragment extends Fragment {
                 fragmentTransaction.commit();
 
 
-            }
-        });
-
-        button.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle("Удаление")
-                        .setMessage("Хотите удалить задачу?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
-                                getActivity().getSupportFragmentManager().beginTransaction().remove(TaskFragment.this).commit();
-                                timer.cancel();
-                            }
-                        })
-                        .show();
+//                new AlertDialog.Builder(v.getContext())
+//                        .setTitle("Удаление")
+//                        .setMessage("Хотите удалить задачу?")
+//                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // continue with delete
+//                                getActivity().getSupportFragmentManager().beginTransaction().remove(TaskFragment.this).commit();
+//                                timer.cancel();
+//                            }
+//                        })
+//                        .show();
                 return false;
             }
         });
