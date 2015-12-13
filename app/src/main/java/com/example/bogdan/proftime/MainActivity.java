@@ -1,13 +1,12 @@
 package com.example.bogdan.proftime;
 
+import static com.example.bogdan.proftime.StaticValues.*;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -59,10 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (listTitle == null) {
             listTitle = new ArrayList<>();
-            listTitle.add("Сделать макет приложения");
-            listTitle.add("Проверить работу сервера");
-            listTitle.add("Поставить картинки");
-            listTitle.add("Изменить цвет фона");
             listTitle.add("сделать макет приложения");
             listTitle.add("проверить работу сервера");
             listTitle.add("поставить картинки");
@@ -165,6 +160,13 @@ public class MainActivity extends AppCompatActivity {
             createTaskFragment(listTaskStatus.get(i), listTime.get(i), listTitle.get(i), listTaskInfo.get(i));
         }
 
+
+//        findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                createTaskFragment(0);
+//            }
+//        });
     }
 
     public void createTaskFragment(Boolean aBoolean, String time, String title, String info) {
