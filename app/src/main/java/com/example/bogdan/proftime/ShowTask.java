@@ -138,7 +138,6 @@ public class ShowTask extends AppCompatActivity {
         }
     };
 
-//    int count = 0;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
