@@ -62,12 +62,16 @@ public class ParseDB extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         JSONObject jsonObject = null;
+        ProjectObject projectObject = null;
         try {
             jsonObject  = new JSONObject(s);
-            ProjectObject projectObject = new ProjectObject();
+            projectObject = new ProjectObject();
             projectObject.setStatus(jsonObject.getString("status"));
             projectObject.setId(jsonObject.getInt("id"));
             int count = jsonObject.getInt("countOfTasks");
+            JSONObject jsonObject1 = jsonObject.getJSONObject("owner");
+            projectObject.setFirstNameCustomer(jsonObject1.getString("firstName"));
+            projectObject.setLastNameCustomer(jsonObject1.getString("lastName"));
             if (count == 0) {
                 projectObject.setTasks(null);
             } else {
@@ -89,7 +93,6 @@ public class ParseDB extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
 }

@@ -8,14 +8,18 @@ import java.util.List;
 public class ProjectObject {
 
     private int id;
+    private String firstNameCustomer;
+    private String lastNameCustomer;
     private String status;
     private List<Task> tasks;
 
     public ProjectObject() {
     }
 
-    public ProjectObject(int id, String status, List<Task> tasks) {
+    public ProjectObject(int id, String firstNameCustomer, String lastNameCustomer, String status, List<Task> tasks) {
         this.id = id;
+        this.firstNameCustomer = firstNameCustomer;
+        this.lastNameCustomer = lastNameCustomer;
         this.status = status;
         this.tasks = tasks;
     }
@@ -26,6 +30,22 @@ public class ProjectObject {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFirstNameCustomer() {
+        return firstNameCustomer;
+    }
+
+    public void setFirstNameCustomer(String firstNameCustomer) {
+        this.firstNameCustomer = firstNameCustomer;
+    }
+
+    public String getLastNameCustomer() {
+        return lastNameCustomer;
+    }
+
+    public void setLastNameCustomer(String lastNameCustomer) {
+        this.lastNameCustomer = lastNameCustomer;
     }
 
     public String getStatus() {
