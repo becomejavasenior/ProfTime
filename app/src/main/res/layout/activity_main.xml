@@ -3,8 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.example.bogdan.proftime.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hapticFeedbackEnabled="true"
+        android:id="@+id/toolbar"
+        app:theme="@style/ToolbarColoredBackArrow"
+        android:background="@color/colorPrimary"/>
 
     <Button
         android:layout_width="match_parent"
