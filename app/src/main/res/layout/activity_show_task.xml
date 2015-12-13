@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ddd8d8"
+    android:background="#43A047"
     tools:context=".ShowTask">
 
 
@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="    Сохранить   "
-        android:visibility="gone"
         android:gravity="start|center_vertical"/>
 
 
@@ -64,7 +63,6 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:id="@+id/status"/>
 
             <TextView
